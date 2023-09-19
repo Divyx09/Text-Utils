@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import ContactUs from "./ContactUs";
-
 
 export default function About() {
   const [myStyle, setmyStyle] = useState({
