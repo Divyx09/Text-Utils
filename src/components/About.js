@@ -27,11 +27,7 @@ export default function About() {
     }
   };
 
-  const Contact = () => {
-    <Routes>
-      <Route excat path="/contact" element={<ContactUs/>}></Route>
-    </Routes>;
-  };
+  
 
   return (
     <div className="container" style={myStyle}>
@@ -63,8 +59,8 @@ export default function About() {
               find tools for formatting source code, converters, tools for
               handling text, such as remove duplicate characters, empty lines,
               text sorter and many others. Check the current features below and
-              feel free to recommend a new feature by <Link className="link-underline link-underline-opacity-0" to="/contact">contacting us. </Link>
-            </div>
+              feel free to recommend a new feature by <code>contacting us.</code>
+              </div>
           </div>
         </div>
         <div className="accordion-item">
