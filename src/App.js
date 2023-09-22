@@ -10,9 +10,6 @@ import ContactUs from "./components/ContactUs";
 function App() {
   const [mode, setMode] = useState("light");
   const [alert, setalert] = useState(null);
-  // const [contrast, setcontrast] = useState({
-  //   backgroundColor:'#080808'
-  // })
 
   const toggleMode = () => {
     if (mode === "light") {
@@ -25,19 +22,6 @@ function App() {
       showAlert("Light Mode has been Enabled", "success");
     }
   };
-  // const toggleContrast = ()=>{
-  //   if(contrast.backgroundColor === '#080808'){
-  //     setcontrast({
-  //       backgroundColor:'black',
-  //       color:'#d4ff00'
-  //     })
-  //   }
-  //   else{
-  //     setcontrast({
-  //       backgroundColor:'white'
-  //     })
-  //   }
-  // }
   const showAlert = (message, type) => {
     setalert({
       message: message,
@@ -61,7 +45,7 @@ function App() {
         <Alert alert={alert} />
         <div className="container my-3">
           <Routes>
-            <Route exact path="/about" element={<About />}>
+            <Route exact path="/about" element={<About mode={mode}/>}>
               
             </Route>
             <Route excat path="/"
