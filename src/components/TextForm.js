@@ -53,13 +53,20 @@ export default function TextForm(props) {
     props.showAlert("Lisening To your Text..... ", "success");
   };
 
+  
   const paste = () => {
-    let text = document.getElementById("mybox");
     navigator.clipboard.readText().then(
-        (text.innerText = text),
-      (err) => console.log(err)
+      cliptext =>
+        ( document.getElementById('mybox').innerText = cliptext),
+      err => console.log(err)
     );
   };
+
+  const handleExtraSpaces = () => {
+    let newText = text.split(/[ ]+/);
+    setText(newText.join(" "));
+    props.showAlert("Extra spaces removed!", "success");
+}
 
   const [text, setText] = useState("");
   return (
@@ -116,15 +123,22 @@ export default function TextForm(props) {
         </button>
         <button
           type="submit"
+          onClick={handleExtraSpaces}
+          className="btn btn-danger mx-3 mt-2"
+        >
+          Remove Extra Spaces
+        </button>
+        <button
+          type="submit"
           onClick={paste}
-          className="btn btn-secondary mx-3 mt-2"
+          className="btn btn-secondary  mt-2"
         >
           Paste From ClipBoard
         </button>
         <button
           type="submit"
           onClick={handleRedo}
-          className="btn btn-info mx-3 mt-2"
+          className="btn btn-info mx-auto mt-2"
         >
           Undo
         </button>
