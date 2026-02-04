@@ -3,7 +3,7 @@ import Alert from "./components/Alert";
 import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import ContactUs from "./components/ContactUs";
 
@@ -11,17 +11,21 @@ function App() {
   const [mode, setMode] = useState("light");
   const [alert, setalert] = useState(null);
 
+  // Apply theme to body element
+  useEffect(() => {
+    document.body.setAttribute('data-theme', mode);
+  }, [mode]);
+
   const toggleMode = () => {
     if (mode === "light") {
       setMode("dark");
-      document.body.style.backgroundColor = "black";
       showAlert("Dark Mode has been Enabled", "success");
     } else {
       setMode("light");
-      document.body.style.backgroundColor = "white";
       showAlert("Light Mode has been Enabled", "success");
     }
   };
+
   const showAlert = (message, type) => {
     setalert({
       message: message,
@@ -29,37 +33,31 @@ function App() {
     });
     setTimeout(() => {
       setalert(null);
-    }, 1500);
+    }, 3000);
   };
+
   return (
     <Router>
       <>
         <Navbar
-          title="TextUtilitis"
+          title="TextUtils"
           mode={mode}
-          toggleMode={
-            toggleMode
-          } /*toggleContrast={toggleContrast} contrast={contrast}*/
+          toggleMode={toggleMode}
         />
-        {/* <Navbar></Navbar> */}
         <Alert alert={alert} />
-        <div className="container my-3">
+        <div className="app-content">
           <Routes>
-            <Route exact path="/about" element={<About mode={mode}/>}>
-              
-            </Route>
-            <Route excat path="/"
-            element={<TextForm
+            <Route exact path="/about" element={<About mode={mode}/>} />
+            <Route exact path="/"
+              element={<TextForm
                 showAlert={showAlert}
                 heading="Enter Your Text To Analyse it."
                 mode={mode}
-              ></TextForm>}>
-              
-            </Route>
-            <Route excat path="/contact"
-            element={<ContactUs mode={mode}/>}>
-            </Route>
-
+              />}
+            />
+            <Route exact path="/contact"
+              element={<ContactUs mode={mode}/>}
+            />
           </Routes>
         </div>
       </>

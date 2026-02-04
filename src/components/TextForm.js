@@ -1,24 +1,24 @@
 import React, { useState } from "react";
+import styles from "../styles/components/TextForm.module.css";
 
 export default function TextForm(props) {
   const handleUpText = () => {
-    // console.log("UpperCase Was Pressed" + text);
     let newText = text.toUpperCase();
     setText(newText);
     props.showAlert("Text Converted to Uppercase", "success");
   };
+  
   const handleLoText = () => {
-    // console.log("UpperCase Was Pressed" + text);
     let newText = text.toLowerCase();
     setText(newText);
     props.showAlert("Text Converted to Lowercase", "success");
   };
+  
   const handleChange = (event) => {
-    // console.log("On Changed");
     setText(event.target.value);
   };
-  const cleartext = (event) => {
-    // console.log("On Changed");
+  
+  const cleartext = () => {
     setText("");
     props.showAlert("Text Cleared !!", "success");
   };
@@ -28,151 +28,165 @@ export default function TextForm(props) {
     props.showAlert("Text Copied To Clipboard", "success");
   };
 
-  const handelUndo=()=>{
-    console.log("handleUndo");
-  }
-  const handleRedo=()=>{
-    console.log("handleRedo");
-  }
   const capitalize = () => {
     const titleCase = text
-    .toLowerCase()
-    .split(' ')
-    .map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    })
-    .join(' ');
-
-   setText(titleCase);
-}
+      .toLowerCase()
+      .split(' ')
+      .map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(' ');
+    setText(titleCase);
+    props.showAlert("Text Capitalized", "success");
+  };
 
   const speak = () => {
     let msg = new SpeechSynthesisUtterance();
     msg.text = text;
     window.speechSynthesis.speak(msg);
-    props.showAlert("Lisening To your Text..... ", "success");
+    props.showAlert("Listening To your Text..... ", "success");
   };
 
-  
-  const paste = () => {
-    navigator.clipboard.readText().then(
-      cliptext =>
-        ( document.getElementById('mybox').innerText = cliptext),
-      err => console.log(err)
-    );
+  const paste = async () => {
+    try {
+      const cliptext = await navigator.clipboard.readText();
+      setText(cliptext);
+      props.showAlert("Text Pasted from Clipboard", "success");
+    } catch (err) {
+      console.log(err);
+      props.showAlert("Failed to paste text", "error");
+    }
   };
 
   const handleExtraSpaces = () => {
     let newText = text.split(/[ ]+/);
     setText(newText.join(" "));
     props.showAlert("Extra spaces removed!", "success");
-}
+  };
 
   const [text, setText] = useState("");
-  return (
-    <div>
-      <div className="mb-3">
-        <h1 style={{ color: props.mode === "light" ? "black" : "white" }}>
-          {props.heading}
-        </h1>
-        <textarea
-          style={{
-            backgroundColor: props.mode === "dark" ? "#343a40" : "white",
-            color: props.mode === "light" ? "black" : "white",
-          }}
-          className="form-control"
-          id="mybox"
-          rows="8"
-          value={text}
-          onChange={handleChange}
-        ></textarea>
 
-        <button className="btn btn-primary mt-2" onClick={handleUpText}>
-          Convert To Uppercase
-        </button>
-        <button className="btn btn-primary mt-2 mx-3" onClick={handleLoText}>
-          Convert To Lowercase
-        </button>
-        <button
-          type="submit"
-          onClick={speak}
-          className="btn btn-warning mx-3 mt-2"
-        >
-          Speak
-        </button>
-        <button
-          type="submit"
-          onClick={handelCopy}
-          className="btn btn-success mx-3 mt-2"
-        >
-          Copy
-        </button>
-        <button
-          type="submit"
-          onClick={cleartext}
-          className="btn btn-danger mx-3 mt-2"
-        >
-          ClearText
-        </button>
-        <button
-          type="submit"
-          onClick={capitalize}
-          className="btn btn-primary mx-3 mt-2"
-        >
-          Capitalize First-Word
-        </button>
-        <button
-          type="submit"
-          onClick={handleExtraSpaces}
-          className="btn btn-danger mx-3 mt-2"
-        >
-          Remove Extra Spaces
-        </button>
-        <button
-          type="submit"
-          onClick={paste}
-          className="btn btn-secondary  mt-2"
-        >
-          Paste From ClipBoard
-        </button>
-        <button
-          type="submit"
-          onClick={handleRedo}
-          className="btn btn-info mx-auto mt-2"
-        >
-          Undo
-        </button>
-        <button
-          type="submit"
-          onClick={handelUndo}
-          className="btn btn-info mx-3 mt-2"
-        >
-          Redo
-        </button>
-      </div>
-      <div
-        className="container"
-        style={{ color: props.mode === "light" ? "black" : "white" }}
-      >
-        <h1>Your Text Summary</h1>
-        <p>
-          {text.split(/\s+/).filter((element)=>{return element.length!==0}).length} Words and {text.length} Characters
-        </p>
-        <p>{0.008 * text.split(" ").length} Minutes read</p>
-      </div>
-      <div
-        className="container rounded text-justify"
-        style={{
-          color: props.mode === "light" ? "black" : "white",
-          border: "2px solid ",
-        }}
-      >
-        <h2>Preview</h2>
-        <p>
-          {text.length > 0
-            ? text
-            : "Enter Something in the above TextBox To preview It"}
-        </p>
+  const wordCount = text.split(/\s+/).filter((element) => {
+    return element.length !== 0;
+  }).length;
+
+  const charCount = text.length;
+  const readingTime = (0.008 * wordCount).toFixed(2);
+
+  return (
+    <div className={styles.textForm}>
+      <div className="container">
+        <div className={styles.card}>
+          <h1 className={styles.heading}>{props.heading}</h1>
+
+          <div className={styles.textareaSection}>
+            <textarea
+              className={styles.textarea}
+              id="mybox"
+              rows="8"
+              value={text}
+              onChange={handleChange}
+              placeholder="Enter your text here..."
+            ></textarea>
+          </div>
+
+          <div className={styles.buttonGroups}>
+            <div className={styles.buttonGroup}>
+              <span className={styles.buttonGroupLabel}>Text Transformation</span>
+              <div className={styles.buttons}>
+                <button 
+                  className={`${styles.button} ${styles.buttonPrimary}`} 
+                  onClick={handleUpText}
+                >
+                  <span>📤</span> Uppercase
+                </button>
+                <button 
+                  className={`${styles.button} ${styles.buttonPrimary}`} 
+                  onClick={handleLoText}
+                >
+                  <span>📥</span> Lowercase
+                </button>
+                <button 
+                  className={`${styles.button} ${styles.buttonPrimary}`} 
+                  onClick={capitalize}
+                >
+                  <span>✨</span> Capitalize
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.buttonGroup}>
+              <span className={styles.buttonGroupLabel}>Clipboard Operations</span>
+              <div className={styles.buttons}>
+                <button 
+                  className={`${styles.button} ${styles.buttonSecondary}`} 
+                  onClick={handelCopy}
+                >
+                  <span>📋</span> Copy
+                </button>
+                <button 
+                  className={`${styles.button} ${styles.buttonInfo}`} 
+                  onClick={paste}
+                >
+                  <span>📌</span> Paste
+                </button>
+                <button 
+                  className={`${styles.button} ${styles.buttonDanger}`} 
+                  onClick={cleartext}
+                >
+                  <span>🗑️</span> Clear
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.buttonGroup}>
+              <span className={styles.buttonGroupLabel}>Text Tools</span>
+              <div className={styles.buttons}>
+                <button 
+                  className={`${styles.button} ${styles.buttonWarning}`} 
+                  onClick={speak}
+                >
+                  <span>🔊</span> Speak
+                </button>
+                <button 
+                  className={`${styles.button} ${styles.buttonDanger}`} 
+                  onClick={handleExtraSpaces}
+                >
+                  <span>✂️</span> Remove Extra Spaces
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.statistics}>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>📝</div>
+            <div className={styles.statValue}>{wordCount}</div>
+            <div className={styles.statLabel}>Words</div>
+          </div>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>🔤</div>
+            <div className={styles.statValue}>{charCount}</div>
+            <div className={styles.statLabel}>Characters</div>
+          </div>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>⏱️</div>
+            <div className={styles.statValue}>{readingTime}</div>
+            <div className={styles.statLabel}>Minutes Read</div>
+          </div>
+        </div>
+
+        <div className={styles.previewSection}>
+          <h2 className={styles.previewHeading}>
+            <span>👁️</span> Preview
+          </h2>
+          <p className={text.length > 0 ? styles.previewText : styles.previewPlaceholder}>
+            {text.length > 0
+              ? text
+              : "Enter something in the above TextBox to preview it"}
+          </p>
+        </div>
       </div>
     </div>
   );

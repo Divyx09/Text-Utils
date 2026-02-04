@@ -1,52 +1,95 @@
 import React from "react";
+import styles from "../styles/components/ContactUs.module.css";
 
 export default function ContactUs(props) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add form submission logic here
+    alert("Form submitted! (This is a demo)");
+  };
+
   return (
-    <div>
-    <div className="container">
-      <h2 style={{color:props.mode==='light'?'black':'white'}}>Contact Us</h2>
-      <form>
-        <div class="form-group col-md-6">
-          <label for="inputPassword4" style={{color:props.mode==='light'?'black':'white'}}>Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputPassword4"
-            placeholder="Name"
-            style={{backgroundColor:props.mode==='dark'?'#343a40':'white',color:props.mode==='light'?'black':'white'}}
-          />
+    <div className={styles.contact}>
+      <div className="container">
+        <div className={styles.header}>
+          <h1 className={styles.title}>Contact Us</h1>
+          <p className={styles.subtitle}>
+            Have a question or suggestion? We'd love to hear from you!
+          </p>
         </div>
-        <div class="form-row ">
-          <div class="form-group col-md-6">
-            <label for="inputEmail4" style={{color:props.mode==='light'?'black':'white'}}>Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="inputEmail4"
-              placeholder="Email"
-              style={{backgroundColor:props.mode==='dark'?'#343a40':'white',color:props.mode==='light'?'black':'white'}}
-            />
+
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formGrid}>
+            <div className={styles.formGroup}>
+              <label htmlFor="name" className={styles.label}>
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                className={styles.input}
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label htmlFor="email" className={styles.label}>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className={styles.input}
+                  placeholder="your.email@example.com"
+                  required
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="phone" className={styles.label}>
+                  Contact Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  className={styles.input}
+                  placeholder="+1 (123) 456-7890"
+                />
+              </div>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="state" className={styles.label}>
+                State/Region
+              </label>
+              <input
+                type="text"
+                id="state"
+                className={styles.input}
+                placeholder="Enter your state or region"
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="message" className={styles.label}>
+                Message
+              </label>
+              <textarea
+                id="message"
+                className={styles.textarea}
+                placeholder="Tell us what's on your mind..."
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" className={styles.submitButton}>
+              Send Message
+            </button>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputCity" style={{color:props.mode==='light'?'black':'white'}}>Contact Number</label>
-            <input type="number" class="form-control" id="inputCity" style={{backgroundColor:props.mode==='dark'?'#343a40':'white',color:props.mode==='light'?'black':'white'}} />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="text" style={{color:props.mode==='light'?'black':'white'}}>State</label>
-            <input type="text" class="form-control" id="inputZip" style={{backgroundColor:props.mode==='dark'?'#343a40':'white',color:props.mode==='light'?'black':'white'}}/>
-          </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputAddress" style={{color:props.mode==='light'?'black':'white'}}>Description</label>
-          <textarea className="form-control" rows="5" placeholder="....."style={{backgroundColor:props.mode==='dark'?'#343a40':'white',color:props.mode==='light'?'black':'white'}}></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary my-3">
-          Submit
-        </button>
-      </form>
-    </div>
+        </form>
+      </div>
     </div>
   );
 }
