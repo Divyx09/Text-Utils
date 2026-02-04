@@ -1,0 +1,133 @@
+/* Alert Component Styles */
+
+.alertContainer {
+  position: fixed;
+  top: 80px;
+  right: var(--spacing-2);
+  z-index: var(--z-alert);
+  max-width: 400px;
+  width: calc(100% - var(--spacing-4));
+}
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  animation: slideIn var(--transition-base) ease-out;
+  margin-bottom: var(--spacing-2);
+  border-left: 4px solid;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.alertIcon {
+  font-size: var(--font-size-xl);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.alertContent {
+  flex: 1;
+}
+
+.alertTitle {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  margin-bottom: 4px;
+}
+
+.alertMessage {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+}
+
+/* Alert Types */
+.alertSuccess {
+  background-color: var(--color-success);
+  border-left-color: var(--color-success);
+  color: white;
+}
+
+.alertError {
+  background-color: var(--color-danger);
+  border-left-color: var(--color-danger);
+  color: white;
+}
+
+.alertWarning {
+  background-color: var(--color-warning);
+  border-left-color: var(--color-warning);
+  color: white;
+}
+
+.alertInfo {
+  background-color: var(--color-info);
+  border-left-color: var(--color-info);
+  color: white;
+}
+
+/* Close Button */
+.closeButton {
+  background: transparent;
+  color: inherit;
+  font-size: var(--font-size-lg);
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.closeButton:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Progress Bar (Optional) */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.3);
+  animation: progress 3s linear;
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .alertContainer {
+    right: var(--spacing-1);
+    left: var(--spacing-1);
+    width: auto;
+    max-width: none;
+  }
+
+  .alert {
+    padding: var(--spacing-2);
+  }
+}

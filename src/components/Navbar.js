@@ -1,65 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import styles from "../styles/components/Navbar.module.css";
 
 export default function Navbar(props) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <nav
-      className={`navbar navbar-expand-lg bg-${props.mode}`}
-      data-bs-theme={`${props.mode}`}
-    >
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+    <nav className={styles.navbar}>
+      <div className={styles.navbarContainer}>
+        <Link to="/" className={styles.brand}>
+          <span className={styles.brandIcon}>📝</span>
           {props.title}
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link" aria-current="page" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                {props.aboutText}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/contact">
-                Contact Us
-              </Link>
-            </li>
-          </ul>
-          <div
-            className={`form-check form-switch text-${
-              props.mode === "light" ? "dark" : "light"
-            }`}
-          >
-            <input
-              onClick={props.toggleMode}
-              className="form-check-input"
-              type="checkbox"
-              id="flexSwitchCheckDefault"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
+
+        <ul className={`${styles.navLinks} ${isMenuOpen ? styles.open : ''}`}>
+          <li>
+            <Link 
+              to="/" 
+              className={styles.navLink}
+              onClick={() => setIsMenuOpen(false)}
             >
-              Enable DarkMode
-            </label>
-          </div>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/about" 
+              className={styles.navLink}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {props.aboutText}
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/contact" 
+              className={styles.navLink}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact Us
+            </Link>
+          </li>
+        </ul>
+
+        <div className={styles.themeToggle}>
+          <button
+            onClick={props.toggleMode}
+            className={`${styles.toggleButton} ${props.mode === 'dark' ? styles.active : ''}`}
+            aria-label="Toggle theme"
+          >
+            <span className={styles.toggleSlider}>
+              {props.mode === 'light' ? '☀️' : '🌙'}
+            </span>
+          </button>
+          <span className={styles.toggleLabel}>
+            {props.mode === 'light' ? 'Light' : 'Dark'}
+          </span>
         </div>
+
+        <button
+          className={styles.mobileToggle}
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          <span className={styles.hamburger}></span>
+        </button>
       </div>
     </nav>
   );

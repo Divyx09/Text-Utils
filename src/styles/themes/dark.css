@@ -1,0 +1,34 @@
+/* Dark Theme Colors */
+
+[data-theme="dark"] {
+  /* Primary Colors */
+  --color-primary: #3b82f6;
+  --color-secondary: #10b981;
+  
+  /* Background Colors */
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  
+  /* Text Colors */
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  
+  /* Border Colors */
+  --color-border: #334155;
+  
+  /* Status Colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Component Specific */
+  --color-input-bg: #1e293b;
+  --color-input-border: #334155;
+  --color-input-focus: #3b82f6;
+  
+  /* Hover States */
+  --color-primary-hover: #2563eb;
+  --color-secondary-hover: #059669;
+  --color-surface-hover: #334155;
+}

@@ -1,0 +1,121 @@
+/* About Component Styles */
+
+.about {
+  padding: var(--spacing-4) 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-5);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-2);
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Feature Grid */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+}
+
+.featureCard {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.featureCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.featureIcon {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-1);
+}
+
+.featureTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.featureDescription {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Additional Info Section */
+.infoSection {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.infoTitle {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-2);
+  color: var(--color-primary);
+}
+
+.infoText {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+/* Highlight */
+.highlight {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 2px var(--spacing-1);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about {
+    padding: var(--spacing-3) 0;
+  }
+
+  .title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2);
+  }
+
+  .featureCard {
+    padding: var(--spacing-3);
+  }
+
+  .infoSection {
+    padding: var(--spacing-3);
+  }
+}
